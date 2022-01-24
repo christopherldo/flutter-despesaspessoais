@@ -13,8 +13,17 @@ class ExpensesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = ThemeData(
+      primarySwatch: Colors.purple,
+    );
+
     return MaterialApp(
       home: MyHomePage(),
+      theme: theme.copyWith(
+        colorScheme: theme.colorScheme.copyWith(
+          secondary: Colors.amber,
+        ),
+      ),
     );
   }
 }
