@@ -9,12 +9,27 @@ import 'models/transaction.dart';
 main() => runApp(ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
-  ExpensesApp({Key? key}) : super(key: key);
+  const ExpensesApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = ThemeData(
       primarySwatch: Colors.purple,
+      fontFamily: 'Quicksand',
+      appBarTheme: AppBarTheme(
+        titleTextStyle: TextStyle(
+          fontFamily: 'OpenSans',
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      textTheme: ThemeData.light().textTheme.copyWith(
+            headline6: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
     );
 
     return MaterialApp(
@@ -79,7 +94,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Despesas Pessoais'),
+        title: Text(
+          'Despesas Pessoais',
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.add),
