@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 main() => runApp(ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
-  const ExpensesApp({Key? key}) : super(key: key);
+  ExpensesApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +34,9 @@ class MyHomePage extends StatelessWidget {
         date: DateTime.now(),
       ),
     ];
+
+    final titleController = TextEditingController();
+    final valueController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -109,11 +112,13 @@ class MyHomePage extends StatelessWidget {
               child: Column(
                 children: [
                   TextField(
+                    controller: titleController,
                     decoration: InputDecoration(
                       labelText: 'Título',
                     ),
                   ),
                   TextField(
+                    controller: valueController,
                     decoration: InputDecoration(
                       labelText: 'Valor (R\$)',
                     ),
@@ -122,7 +127,10 @@ class MyHomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          print(titleController.text);
+                          print(valueController.text);
+                        },
                         child: Text(
                           'Nova Transação',
                           style: TextStyle(
