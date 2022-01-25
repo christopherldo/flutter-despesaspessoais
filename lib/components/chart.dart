@@ -45,6 +45,15 @@ class Chart extends StatelessWidget {
     );
   }
 
+  double get _weekTotalValue {
+    return groupedTransactions.fold(
+      0.0,
+      (sum, item) {
+        return sum + (item['value'] as double);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -58,9 +67,8 @@ class Chart extends StatelessWidget {
                 fit: FlexFit.tight,
                 child: ChartBar(
                   label: data['day'].toString(),
-                  spendingAmount:
-                      double.tryParse(data['value'].toString()) ?? 0,
-                  spendingTotal: 500,
+                  spendingAmount: data['value'] as double,
+                  spendingTotal: _weekTotalValue,
                 ),
               );
             },
