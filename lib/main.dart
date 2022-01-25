@@ -66,6 +66,12 @@ class _MyHomePageState extends State<MyHomePage> {
     return transactionList;
   }
 
+  _deleteTransaction(String id) {
+    setState(() {
+      transactions.removeWhere((transaction) => transaction.id == id);
+    });
+  }
+
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -123,13 +129,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             TransactionList(
               transactions: _transactions,
+              onDelete: _deleteTransaction,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _openTransactionFormModal(context),
-        child: Icon(Icons.add),
+        child: Icon(
+          Icons.add,
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
