@@ -60,7 +60,7 @@ class Chart extends StatelessWidget {
                   label: data['day'].toString(),
                   spendingAmount:
                       double.tryParse(data['value'].toString()) ?? 0,
-                  spendingTotal: 1000,
+                  spendingTotal: 500,
                 ),
               );
             },
