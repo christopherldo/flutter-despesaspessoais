@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TransactionForm extends StatefulWidget {
-  final void Function(String, double) onSubmit;
+  final void Function(String, double, DateTime) onSubmit;
 
   const TransactionForm({
     Key? key,
@@ -16,8 +16,7 @@ class TransactionForm extends StatefulWidget {
 class _TransactionFormState extends State<TransactionForm> {
   final _titleController = TextEditingController();
   final _valueController = TextEditingController();
-
-  var _selectedDate = null;
+  DateTime? _selectedDate;
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +24,11 @@ class _TransactionFormState extends State<TransactionForm> {
       final title = _titleController.text;
       final value = double.tryParse(_valueController.text) ?? 0.0;
 
-      if (title.isEmpty || value <= 0) {
+      if (title.isEmpty || value <= 0 || _selectedDate == null) {
         return;
       }
 
-      widget.onSubmit(title, value);
+      widget.onSubmit(title, value, _selectedDate as DateTime);
     }
 
     _showDatePicker() {
@@ -59,15 +58,15 @@ class _TransactionFormState extends State<TransactionForm> {
           children: [
             TextField(
               controller: _titleController,
-              onSubmitted: (_) => _submitForm(),
               decoration: InputDecoration(
                 labelText: 'Título',
               ),
             ),
             TextField(
               controller: _valueController,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-              onSubmitted: (_) => _submitForm(),
+              keyboardType: TextInputType.numberWithOptions(
+                decimal: true,
+              ),
               decoration: InputDecoration(
                 labelText: 'Valor (R\$)',
               ),
@@ -80,7 +79,7 @@ class _TransactionFormState extends State<TransactionForm> {
                     child: Text(
                       _selectedDate == null
                           ? 'Nenhuma data selecionada'
-                          : 'Data selecionada: ${DateFormat('dd/MM/yyyy').format(_selectedDate)}',
+                          : 'Data selecionada: ${DateFormat('dd/MM/yyyy').format(_selectedDate as DateTime)}',
                     ),
                   ),
                   TextButton(
