@@ -8,41 +8,80 @@ class Chart extends StatelessWidget {
 
   final List<Transaction> recentTransactions;
 
-  final List<String> _weekDays = const [
-    'DOM',
-    'SEG',
-    'TER',
-    'QUA',
-    'QUI',
-    'SEX',
-    'SÁB',
-  ];
+  final _dateToPortuguese = const {
+    'Sun': 'DOM',
+    'Mon': 'SEG',
+    'Tue': 'TER',
+    'Wed': 'QUA',
+    'Thu': 'QUI',
+    'Fri': 'SEX',
+    'Sat': 'SÁB',
+  };
 
   List<Map<String, Object>> get groupedTransactions {
-    return List.generate(
-      7,
-      (index) {
-        // Get the date of the last sunday till saturday
-        final weekDay = DateTime.now().subtract(
-          Duration(days: index),
+    final groupedTransactions = <Map<String, Object>>[];
+
+    final weekDayIndexOfTransaction = recentTransactions
+        .map((transaction) => DateFormat.E().format(transaction.date))
+        .toList();
+
+    for (var i = 0; i < weekDayIndexOfTransaction.length; i++) {
+      var currentDay = weekDayIndexOfTransaction[i];
+      var currentDayTransactions = recentTransactions
+          .where((transaction) =>
+              DateFormat.E().format(transaction.date) == currentDay)
+          .toList();
+
+      if (groupedTransactions
+          .where((element) => element['day'] == _dateToPortuguese[currentDay])
+          .isEmpty) {
+        groupedTransactions.add(
+          {
+            'day': _dateToPortuguese[currentDay] as String,
+            'value': currentDayTransactions.fold<double>(
+              0,
+              (accumulator, transaction) => accumulator + transaction.value,
+            ),
+          },
         );
+      }
+    }
 
-        double totalSum = 0.0;
-
-        for (var i = 0; i < recentTransactions.length; i++) {
-          bool sameDay = recentTransactions[i].date.day == weekDay.day;
-
-          if (sameDay) {
-            totalSum += recentTransactions[i].value;
-          }
+    _dateToPortuguese.forEach(
+      (key, value) {
+        if (groupedTransactions
+            .where((element) => element['day'] == value)
+            .isEmpty) {
+          groupedTransactions.add(
+            {
+              'day': value,
+              'value': 0.0,
+            },
+          );
         }
-
-        return {
-          'day': _weekDays[index],
-          'value': totalSum,
-        };
       },
     );
+
+    final listOrder = [
+      'DOM',
+      'SEG',
+      'TER',
+      'QUA',
+      'QUI',
+      'SEX',
+      'SÁB',
+    ];
+
+    groupedTransactions.sort(
+      (a, b) {
+        final indexA = listOrder.indexOf(a['day'] as String);
+        final indexB = listOrder.indexOf(b['day'] as String);
+
+        return indexA.compareTo(indexB);
+      },
+    );
+
+    return groupedTransactions;
   }
 
   double get _weekTotalValue {

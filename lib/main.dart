@@ -52,38 +52,32 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _transactions = [
+  final List<Transaction> transactions = [
     Transaction(
-      id: 't0',
-      title: 'Novo Tênis de Corrida',
-      value: 310.76,
-      date: DateTime.now(),
+      id: 't2',
+      title: 'Conta de Luz',
+      value: 211.30,
+      date: DateTime.now().subtract(Duration(days: 5)),
     ),
     Transaction(
       id: 't1',
       title: 'Novo Tênis de Corrida',
       value: 310.76,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Novo Tênis de Corrida',
-      value: 310.76,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't3',
-      title: 'Novo Tênis de Corrida',
-      value: 310.76,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't4',
-      title: 'Novo Tênis de Corrida',
-      value: 310.76,
-      date: DateTime.now(),
+      date: DateTime.now().subtract(Duration(days: 1)),
     ),
   ];
+
+  List<Transaction> get _transactions {
+    final transactionList = [
+      ...transactions,
+    ];
+
+    transactionList.sort((a, b) {
+      return b.date.compareTo(a.date);
+    });
+
+    return transactionList;
+  }
 
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
@@ -113,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     setState(() {
-      _transactions.add(newTransaction);
+      transactions.add(newTransaction);
     });
 
     Navigator.of(context).pop();
