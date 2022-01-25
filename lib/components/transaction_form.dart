@@ -36,7 +36,7 @@ class _TransactionFormState extends State<TransactionForm> {
         context: context,
         initialDate: _selectedDate ?? DateTime.now(),
         firstDate: DateTime.now().subtract(
-          Duration(days: 365),
+          const Duration(days: 365),
         ),
         lastDate: DateTime.now(),
       ).then((pickedDate) {
@@ -58,20 +58,20 @@ class _TransactionFormState extends State<TransactionForm> {
           children: [
             TextField(
               controller: _titleController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Título',
               ),
             ),
             TextField(
               controller: _valueController,
-              keyboardType: TextInputType.numberWithOptions(
+              keyboardType: const TextInputType.numberWithOptions(
                 decimal: true,
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Valor (R\$)',
               ),
             ),
-            Container(
+            SizedBox(
               height: 70,
               child: Row(
                 children: [
@@ -100,7 +100,7 @@ class _TransactionFormState extends State<TransactionForm> {
               children: [
                 ElevatedButton(
                   onPressed: _submitForm,
-                  child: Text(
+                  child: const Text(
                     'Salvar Transação',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,

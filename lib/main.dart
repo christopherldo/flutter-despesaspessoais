@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'models/transaction.dart';
 
-main() => runApp(ExpensesApp());
+main() => runApp(const ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
   const ExpensesApp({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class ExpensesApp extends StatelessWidget {
     final ThemeData theme = ThemeData(
       primarySwatch: Colors.purple,
       fontFamily: 'Quicksand',
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         titleTextStyle: TextStyle(
           fontFamily: 'OpenSans',
           fontSize: 20,
@@ -25,7 +25,7 @@ class ExpensesApp extends StatelessWidget {
         ),
       ),
       textTheme: ThemeData.light().textTheme.copyWith(
-            headline6: TextStyle(
+            headline6: const TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -34,7 +34,7 @@ class ExpensesApp extends StatelessWidget {
     );
 
     return MaterialApp(
-      home: MyHomePage(),
+      home: const MyHomePage(),
       theme: theme.copyWith(
         colorScheme: theme.colorScheme.copyWith(
           secondary: Colors.amber,
@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return _transactions.where((tr) {
       return tr.date.isAfter(
         DateTime.now().subtract(
-          Duration(days: 7),
+          const Duration(days: 7),
         ),
       );
     }).toList();
@@ -110,12 +110,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Despesas Pessoais',
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () => _openTransactionFormModal(context),
           ),
         ],
@@ -136,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _openTransactionFormModal(context),
-        child: Icon(
+        child: const Icon(
           Icons.add,
         ),
       ),

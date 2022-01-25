@@ -19,14 +19,14 @@ class TransactionList extends StatelessWidget {
       child: transactions.isEmpty
           ? Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Text(
                   'Nenhuma Transação Cadastrada!',
                   style: Theme.of(context).textTheme.headline6,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Image.asset(
@@ -40,7 +40,7 @@ class TransactionList extends StatelessWidget {
               itemCount: transactions.length,
               itemBuilder: (context, index) => Card(
                 elevation: 5,
-                margin: EdgeInsets.symmetric(
+                margin: const EdgeInsets.symmetric(
                   vertical: 8,
                   horizontal: 5,
                 ),
@@ -64,7 +64,7 @@ class TransactionList extends StatelessWidget {
                     DateFormat('dd MMM yyyy').format(transactions[index].date),
                   ),
                   trailing: IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.delete,
                     ),
                     color: Theme.of(context).errorColor,
